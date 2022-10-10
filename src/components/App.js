@@ -1,7 +1,7 @@
 import React from "react";
 import Nav from "./Nav";
 import Filter from "./Filter"
-import Hoglist from "./Hoglist"
+import HogList from "./Hoglist"
 
 
 import hogs from "../porkers_data";
@@ -24,10 +24,10 @@ function App() {
 				<Nav />
 			</div>
 			<div>
-				<Filter hogsGreased= {hogs.greased}/>
+				<Filter hogsGreased= {hogs}/>
 			</div>
 			<div>
-				<Hoglist hogs={hogCard}/>
+				<HogList hogs={hogs}/>
 			</div>
 		</div>
 	);
