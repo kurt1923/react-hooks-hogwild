@@ -1,33 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import Nav from "./Nav";
 import Filter from "./Filter"
-import HogList from "./Hoglist"
+import HogList from "./HogList"
 
 
 import hogs from "../porkers_data";
 
 function App() {
 
-    const hogCard = hogs.map((hog) => {
-		return (
- 
-		 <>
-		 <h4>{hog.name}</h4>
-		 <img src={hog.image} alt= "hog img">hog image</img>
-		 </>
-		)
-	 })
-	
+	const [showGreased, setShowGreased] = useState(false);
+	const [sortBy, setSortBy] = useState("name");
+
+const hogsToDisplay = hogs
+	.filter((hog) => (showGreased ? hog.greased : true))
+	.sort((hog1, hog2) => {
+		if(sortBy === "weight") {
+			return hog1.weight - hog2.weight
+		} else {
+			return hog1.name.localeCompare(hog2.name)
+		}
+	})
+
 	return (
 		<div>
 			<div className="App">
 				<Nav />
 			</div>
 			<div>
-				<Filter hogsGreased= {hogs}/>
+				<Filter 
+				showGreased={showGreased}
+				onChangeShowGreased={setShowGreased}
+				sortBy = {sortBy}
+				onChangeSortBy= {setSortBy}/>
 			</div>
 			<div>
-				<HogList hogs={hogs}/>
+				<HogList hogs={hogsToDisplay}/>
 			</div>
 		</div>
 	);
